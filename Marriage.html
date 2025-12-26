@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Certificate Verification | eNagar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+/* ---------- RESET ---------- */
+*{box-sizing:border-box}
+body{
+    margin:0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background:#e6e6e6;
+    color:#333;
+}
+
+/* ---------- NAVBAR ---------- */
+.navbar{
+    background:#2f3e4e;
+    color:#fff;
+    padding:12px 30px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+.navbar .logo{
+    font-weight:bold;
+    font-size:18px;
+}
+.navbar ul{
+    list-style:none;
+    display:flex;
+    gap:22px;
+    margin:0;
+    padding:0;
+}
+.navbar ul li{
+    font-size:14px;
+    cursor:pointer;
+}
+.navbar ul li:hover{
+    text-decoration:underline;
+}
+
+/* ---------- PAGE ---------- */
+.page{
+    background:#fff;
+    width:92%;
+    margin:20px auto;
+    padding:25px 35px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Breadcrumb */
+.breadcrumb{
+    font-size:13px;
+    color:#777;
+    margin-bottom:15px;
+}
+
+/* Title */
+.title{
+    text-align:center;
+    margin-bottom:30px;
+}
+.title h2{
+    margin:0;
+    font-size:20px;
+}
+.title p{
+    margin:6px 0 0;
+    font-size:13px;
+    color:#777;
+}
+
+/* ---------- FORM GRID ---------- */
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    column-gap:40px;
+    row-gap:25px;
+}
+
+.field label{
+    display:block;
+    font-size:13px;
+    margin-bottom:6px;
+}
+.field label span{
+    color:red;
+}
+.field input,
+.field select{
+    width:100%;
+    border:none;
+    border-bottom:1px solid #ccc;
+    padding:6px 2px;
+    font-size:14px;
+    outline:none;
+}
+.field input:focus,
+.field select:focus{
+    border-bottom:2px solid #1e88e5;
+}
+
+/* Date icon */
+.date-wrap{
+    position:relative;
+}
+.date-wrap::after{
+    content:"📅";
+    position:absolute;
+    right:0;
+    bottom:6px;
+    font-size:16px;
+    color:#666;
+}
+
+/* ---------- CAPTCHA ---------- */
+.captcha-box{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+.captcha-code{
+    font-size:22px;
+    font-weight:bold;
+    letter-spacing:2px;
+    color:#000;
+}
+.refresh{
+    cursor:pointer;
+    font-size:18px;
+}
+
+/* ---------- BUTTON ---------- */
+.btn-wrap{
+    grid-column:1 / span 2;
+    text-align:center;
+    margin-top:10px;
+}
+button{
+    background:#1e88e5;
+    border:none;
+    color:#fff;
+    padding:10px 28px;
+    font-size:14px;
+    border-radius:4px;
+    cursor:pointer;
+}
+button:hover{
+    background:#1565c0;
+}
+
+/* ---------- RESULT ---------- */
+.result{
+    display:none;
+    margin-top:40px;
+    border-top:1px solid #ddd;
+    padding-top:25px;
+}
+.result-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:25px 40px;
+}
+.value{
+    font-size:14px;
+    border-bottom:1px dashed #ccc;
+    padding-bottom:4px;
+}
+
+/* ---------- FOOTER ---------- */
+.footer{
+    background:#2f3e4e;
+    color:#ccc;
+    padding:30px;
+    margin-top:40px;
+}
+.footer-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+}
+.footer h2{
+    margin-top:0;
+    color:#fff;
+    font-size:14px;
+}
+.footer p{
+    font-size:13px;
+    margin:6px 0;
+}
+.footer-bottom{
+    text-align:center;
+    font-size:12px;
+    margin-top:20px;
+    color:#aaa;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:900px){
+    .form-grid,.result-grid{
+        grid-template-columns:1fr;
+    }
+    .btn-wrap{
+        grid-column:1;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="logo"><img src="Eolakh.png" alt="Eolakh Gujrat" width="60%" height="15%"></div>
+    <ul>
+        <li>Home</li>
+        <li>Quick Pay</li>
+        <li>Certificate Verification</li>
+        <li>Online Services</li>
+        <li>Downloads</li>
+        <li>Login</li>
+        <li>Register</li>
+    </ul>
+</div>
+
+<!-- PAGE -->
+<div class="page">
+
+    <div class="breadcrumb">Home / Certificate Verification</div>
+
+    <div class="title">
+        <h2>Certificate Verification</h2>
+        <p>પ્રમાણપત્ર ચકાસણી</p>
+        <p>All fields are required</p>
+    </div>
+
+    <!-- FORM -->
+    <div class="form-grid">
+
+        <div class="field">
+            <label>ULB Name <br><span style="font-size:15px;"><b>*</B></span>&nbsp;&nbsp;ULB નું નામ</label>
+            <select>
+                <option>Savarkundla Nagarpalika/ સાવરકુંડલા નગરપાલિકા</option>
+		Rajpipla Nagarpalika / રાજપીપલા નગરપાલિકા</option>
+		<option>Rajula Nagarpalika / રાજુલા નગરપાલિકા</option>
+		<option>Ranavav Nagarpalika / રાણાવાવ નગરપાલિકા</option>
+		<option>Rapar Nagarpalika / રાપર નગરપાલિકા</option>
+		<option>Salaya Nagarpalika / સલાયા નગરપાલિકા</option>
+		<option>Sanand Nagarpalika / સાણંદ નગરપાલિકા</option>
+		<option>Santrampur Nagarpalika / સંતરામપુર નગરપાલિકા</option>
+		<option>Savli Nagarpalika / સાવલી નગરપાલિકા</option>
+		<option>Shahera Nagarpalika / શહેરા નગરપાલિકા</option>
+		<option>Siddhpur Nagarpalika / સિધ્ધપુર નગરપાલિકા</option>
+		<option>Sihor Nagarpalika / સિહોર નગરપાલિકા</option>
+		<option>Sikka Nagarpalika / સિક્કા નગરપાલિકા</option>
+		<option>Sojitra Nagarpalika / સોજીત્રા નગરપાલિકા</option>
+		<option>Songadh Nagarpalika / સોનગઢ નગરપાલિકા</option>
+            </select>
+        </div>
+
+        <div class="field">
+            <label>Application Name <br><span style="font-size:15px;"><b>*</B></span>&nbsp;&nbsp;એપ્લિકેશનનું નામ</label>
+            <select>
+                <option>Marriage Certificate//લગ્ન પ્રમાણપત્ર</option>
+		<option>Architect/Engineer License Certificate</option>
+		<option>Birth Certificate/જન્મ પ્રમાણપત્ર</option>
+		<option>Building Permission Certificate</option>
+		<option>Death Certificate/મૃત્યુ પ્રમાણપત્ર</option>
+		<option>Fire NOC Certificate / ફાયર એનઓસી પ્રમાણપત્ર</option>
+		<option>Mobile Tower Fees Payment / મોબાઇલ ટાવર ફી ચુકવણી</option>
+		<option>Professional Tax (EC) Certificate/વ્યવસાયિક કર (ઇસી) પ્રમાણપત્ર</option>
+		<option>Professional Tax (RC) Certificate/વ્યવસાયિક કર (આરસી) પ્રમાણપત્ર</option>
+		<option>RUC Application</option>
+		<option>Shops and Establishment Certificate / દુકાનો અને સ્થાપના પ્રમાણપત્ર</option>
+            </select>
+        </div>
+
+        <div class="field">
+            <label>Registration Number <span style="font-size:15px;"><b>*</B></span></label>
+            <input type="text" value="018JN2024000456">
+        </div>
+
+        <div class="field date-wrap">
+            <label>Registration Date <span style="font-size:15px;"><b>*</B></span></label>
+            <input type="date" value="2024-06-09">
+        </div>
+
+        <div class="field date-wrap">
+            <label>Date of Marriage <span style="font-size:15px;"><b>*</B></span></label>
+            <input type="date" value="2024-04-07">
+        </div>
+
+        <div class="field">
+            <label>Captcha <span style="font-size:15px;"><b>*</B></span></label>
+            <div class="captcha-box">
+                <div class="captcha-code" id="captcha">65845</div>
+                <div class="refresh" onclick="genCaptcha()">🔄</div>
+            </div>
+            <input type="text" placeholder="Enter Captcha">
+        </div>
+
+        <div class="btn-wrap">
+            <button onclick="verify()">VERIFY</button>
+        </div>
+    </div>
+
+    <!-- RESULT -->
+    <div class="result" id="result">
+        <div class="result-grid">
+            <div>Bridegroom's Name<div class="value">Ismailbhai Sulemanbhai Bhatti</div></div>
+            <div>Bridegroom's Father Name<div class="value">Bhatti Sulemanbhai</div></div>
+
+            <div>Bridegroom's Address<div class="value">Shamliya Sheri,Hiramoti Bilding, MAHUVA</div></div>
+            <div>Bride's Name<div class="value">Rafai Rashidabanu Abdulbhai</div></div>
+
+            <div>Bride's Father Name<div class="value">Rafai Abdulbhai</div></div>
+            <div>Bride's Address<div class="value">Bidi Kamdar,savarkundla, AMRELI</div></div>
+
+            <div>Marriage Date<div class="value">07/04/2024</div></div>
+            <div>Registration Date<div class="value">09/06/2024</div></div>
+
+            <div>Serial No<div class="value">0000456</div></div>
+            <div>Volume No<div class="value">1</div></div>
+        </div>
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+    <div class="footer-grid">
+        <div>
+            <h2>ABOUT US</h2>
+            <p>About Us</p>
+            <p>Privacy Policy</p>
+        </div>
+        <div>
+            <h2>CONTACT US</h2>
+            <p>Contact</p>
+            <p>Feedback</p>
+        </div>
+        <div>
+            <h2>HELP</h2>
+            <p>Help</p>
+            <p>FAQ</p>
+        </div>
+        <div>
+            <h2>NAVIGATE SITE</h2>
+            <p>Home</p>
+            <p>Search</p>
+        </div>
+	<div><img src="1010.png" alt="Eolakh Gujrat" align:left;></div>
+	<h3>DOWNLOAD MOBILE APP</h3>
+    </div>
+
+   
+</div>
+ <div class="footer-bottom">
+      2017    © ENAGAR All rights Reserved
+    </div>
+<script>
+function genCaptcha(){
+    document.getElementById("captcha").innerText =
+        Math.floor(10000 + Math.random()*90000);
+}
+function verify(){
+    document.getElementById("result").style.display="block";
+}
+</script>
+
+</body>
+</html>
