@@ -2,375 +2,762 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Certificate Verification | eNagar</title>
+<title>Certificate Verification | eNagar Gujarat</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-/* ---------- RESET ---------- */
+:root{
+  --primary:#1e88e5;
+  --darkheader:#2f3e46;
+  --footer:#344955;
+  --header-height:70px;
+}
+
 *{box-sizing:border-box}
+
 body{
-    margin:0;
-    font-family: "Segoe UI", Arial, sans-serif;
-    background:#e6e6e6;
-    color:#333;
+  margin:0;
+  font-family:"Segoe UI", Arial, sans-serif;
+  background:#dedede;
+  color:#333;
 }
 
-/* ---------- NAVBAR ---------- */
-.navbar{
-    background:#2f3e4e;
-    color:#fff;
-    padding:12px 30px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-}
-.navbar .logo{
-    font-weight:bold;
-    font-size:18px;
-}
-.navbar ul{
-    list-style:none;
-    display:flex;
-    gap:22px;
-    margin:0;
-    padding:0;
-}
-.navbar ul li{
-    font-size:14px;
-    cursor:pointer;
-}
-.navbar ul li:hover{
-    text-decoration:underline;
+/* ================= HEADER ================= */
+/* ===== REAL HEADER STYLE ===== */
+.main-header{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  background:#2f3e46;
+  z-index:1000;
 }
 
-/* ---------- PAGE ---------- */
+.header-inner{
+  max-width:1280px;
+  margin:auto;
+  height:64px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 20px;
+}
+
+/* left logo */
+.logo-left img{
+  height:40px;
+}
+
+/* right logo (GUDM) */
+.logo-right img{
+  height:30px;       /* EXACT original size */
+  background:#fff;
+  padding:4px;
+  border-radius:4px;
+}
+
+/* menu */
+.nav-menu{
+  list-style:none;
+  display:flex;
+  gap:22px;
+  margin:0;
+  padding:0;
+}
+
+.nav-menu li{
+  color:#fff;
+  font-size:14px;
+  position:relative;
+  padding:10px 0;
+  cursor:pointer;
+}
+
+/* active underline */
+.nav-menu li.active::after{
+  content:"";
+  position:absolute;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:110px;
+  height:2px;
+  background:#fff;
+}
+
+/* gap below fixed header */
+.header-gap{
+  height:64px;
+}
+.close-btn{
+  position:absolute;
+  top:-14px;
+  right:-14px;
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  border:2px solid red;
+  background:#fff;
+  color:red;
+  font-size:18px;
+  cursor:pointer;
+  display:none;
+}
+/* ================= PAGE ================= */
 .page{
-    background:#fff;
-    width:92%;
-    margin:20px auto;
-    padding:25px 35px;
-    box-shadow:0 4px 12px rgba(0,0,0,0.15);
+  background:#e0e0e0;
+  padding:40px 0 80px;
 }
 
-/* Breadcrumb */
-.breadcrumb{
-    font-size:13px;
-    color:#777;
-    margin-bottom:15px;
+.container{
+  max-width:820px;
+  margin:40px auto;
+  background:#fff;
+  padding:40px 48px;
+  border-radius:4px;
+  box-shadow:0 8px 20px rgba(0,0,0,.15);
+  overflow:visible;   /* 🔴 IMPORTANT */
+ position:relative;
 }
 
-/* Title */
-.title{
-    text-align:center;
-    margin-bottom:30px;
-}
-.title h2{
-    margin:0;
-    font-size:20px;
-}
-.title p{
-    margin:6px 0 0;
-    font-size:13px;
-    color:#777;
-}
+/* ================= TITLE ================= */
+.title{text-align:center;margin-bottom:30px}
+.title h2{margin:0;font-weight:500;color:#222}
+.title p{font-size:13px;color:#777;margin:6px 0}
+.note{font-size:12px;color:#9e9e9e}
 
-/* ---------- FORM GRID ---------- */
+/* ================= FORM ================= */
 .form-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    column-gap:40px;
-    row-gap:25px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:26px 40px;
 }
 
 .field label{
-    display:block;
-    font-size:13px;
-    margin-bottom:6px;
+  font-size:13px;
+  font-weight:600;
+  margin-bottom:6px;
+  display:block;
 }
-.field label span{
-    color:red;
+.field label span{color:red;margin-right:4px}
+
+.field input,.field select{
+  width:100%;
+  border:none;
+  border-bottom:1px solid #e0e0e0;
+  padding:8px 2px;
+  font-size:14px;
+  background:transparent;
 }
-.field input,
-.field select{
-    width:100%;
-    border:none;
-    border-bottom:1px solid #ccc;
-    padding:6px 2px;
-    font-size:14px;
-    outline:none;
+.field input:focus,.field select:focus{
+  outline:none;
+  border-bottom-color:#1976d2;
 }
-.field input:focus,
-.field select:focus{
-    border-bottom:2px solid #1e88e5;
+.field label small{
+  font-size:12px;
+  color:#888;
+  font-weight:400;
 }
 
-/* Date icon */
-.date-wrap{
-    position:relative;
+
+.select-wrap{position:relative}
+.select-wrap:after{
+  content:"▼";
+  position:absolute;
+  right:8px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:10px;
 }
-.date-wrap::after{
-    content:"📅";
-    position:absolute;
-    right:0;
-    bottom:6px;
-    font-size:16px;
-    color:#666;
+.custom-select{
+  border-bottom:1px solid #e0e0e0;
+  padding:8px 2px;
+  cursor:pointer;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
-/* ---------- CAPTCHA ---------- */
-.captcha-box{
-    display:flex;
-    align-items:center;
-    gap:15px;
-}
-.captcha-code{
-    font-size:22px;
-    font-weight:bold;
-    letter-spacing:2px;
-    color:#000;
-}
-.refresh{
-    cursor:pointer;
-    font-size:18px;
+.dropdown{
+  position:absolute;
+  top:100%;
+  left:0;
+  width:100%;
+  background:#fff;
+  border:1px solid #ddd;
+  z-index:999;
+  max-height:240px;
+  overflow-y:auto;
+  display:none;
 }
 
-/* ---------- BUTTON ---------- */
+/* anchor dropdown to the field */
+
+.dropdown-field{
+  position:relative;   /* 🔴 THIS FIXES OVERFLOW */
+}
+.dropdown li{
+  padding:10px 14px;
+  cursor:pointer;
+  font-size:14px;
+}
+
+.dropdown li:hover{
+  background:#f5f5f5;
+}
+
+.dropdown li.active{
+  background:#26a69a; /* ORIGINAL GREEN */
+  color:#fff;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.check{
+  font-weight:bold;
+}
+
+
+/* ================= CAPTCHA ================= */
+.captcha-row{
+  grid-column:1/-1;
+  display:flex;
+  align-items:center;
+  gap:20px;
+}
+.captcha-row .field{flex:1}
+.captcha-text{
+  font-size:26px;
+  font-weight:700;
+  letter-spacing:2px;
+  text-decoration:line-through;
+  transform:rotate(-3deg);
+  margin-left:auto;
+}
+.refresh{cursor:pointer}
+
+/* ================= BUTTON ================= */
 .btn-wrap{
-    grid-column:1 / span 2;
-    text-align:center;
-    margin-top:10px;
+  grid-column:1/-1;
+  text-align:center;
+  margin-top:28px;
 }
 button{
-    background:#1e88e5;
-    border:none;
-    color:#fff;
-    padding:10px 28px;
-    font-size:14px;
-    border-radius:4px;
-    cursor:pointer;
+  background:var(--primary);
+  color:#fff;
+  border:none;
+  padding:10px 32px;
+  font-size:14px;
+  border-radius:3px;
+  cursor:pointer;
 }
-button:hover{
-    background:#1565c0;
-}
+button:hover{background:#1565c0}
 
-/* ---------- RESULT ---------- */
+/* ================= RESULT ================= */
 .result{
-    display:none;
-    margin-top:40px;
-    border-top:1px solid #ddd;
-    padding-top:25px;
+  display:none;
+  margin-top:50px;
+  padding-top:30px;
+  border-top:1px solid #eee;
 }
 .result-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:25px 40px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:22px 40px;
 }
-.value{
-    font-size:14px;
-    border-bottom:1px dashed #ccc;
-    padding-bottom:4px;
+.r-item{
+  font-size:13px;
+  padding:12px 0;
+  border-bottom:1px solid #e6e6e6;
+}
+.r-item span{
+  display:block;
+  font-size:12px;
+  color:#757575;
+  margin-bottom:6px;
 }
 
-/* ---------- FOOTER ---------- */
-.footer{
-    background:#2f3e4e;
-    color:#ccc;
-    padding:30px;
-    margin-top:40px;
+/* ================= FOOTER ================= */
+footer{
+  background:var(--footer);
+  color:#fff;
+  padding:40px 20px;
 }
+
 .footer-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:20px;
+  max-width:1200px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(4,1fr) 1.4fr;
+  gap:30px;
+  
 }
-.footer h2{
-    margin-top:0;
-    color:#fff;
-    font-size:14px;
+
+footer h4{font-size:14px;margin-bottom:10px}
+footer p{font-size:12px;color:#d1d9de}
+
+.footer-logos{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end; /* right aligned like original */
+  flex-wrap:wrap;
 }
-.footer p{
-    font-size:13px;
-    margin:6px 0;
+
+.footer-logo-item{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  max-width:260px;
+}
+.footer-logo-item img{
+  height:48px;
+  width:auto;
+  background:#fff;
+  padding:6px;
+  border-radius:4px;
+}
+
+.footer-logo-item span{
+  font-size:13px;
+  color:#d0d8db;
+  line-height:1.3;
+}
+.footer-logos figure{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:0;
+}
+
+.footer-logos img{
+  height:55px;
+  background:#fff;
+  /* padding:6px; 
+  border-radius:4px; */
+}
+
+.footer-logos figcaption{
+  font-size:12px;
+  color:#d0d8db;
+  max-width:160px;
+}
+
+.bottom{
+  text-align:center;
+  margin-top:30px;
+  font-size:11px;
+  color:#bcc7cc;
+}
+.logo-row{
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+
+.logo-row img{
+  height:60px;
+  background:#fff;
+ /* padding:6px;
+  border-radius:4px; */
 }
 .footer-bottom{
-    text-align:center;
-    font-size:12px;
-    margin-top:20px;
-    color:#aaa;
+  margin-top:30px;
+  display:flex;
+  justify-content:space-between;
+  font-size:12px;
+  color:#cfd8dc;
 }
 
-/* ---------- RESPONSIVE ---------- */
-@media(max-width:900px){
-    .form-grid,.result-grid{
-        grid-template-columns:1fr;
-    }
-    .btn-wrap{
-        grid-column:1;
-    }
+.visitor{
+  background:#455a64;
+  padding:6px 10px;
+  border-radius:4px;
+}
+/* ===== POPUP MODAL (ORIGINAL STYLE) ===== */
+.modal-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.4);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:2000;
+}
+
+.modal-box{
+  background:#fff;
+  width:320px;
+  padding:30px 20px;
+  text-align:center;
+  border-radius:6px;
+  box-shadow:0 10px 30px rgba(0,0,0,.25);
+}
+
+.modal-icon{
+  width:60px;
+  height:60px;
+  border:3px solid #2196f3;
+  border-radius:50%;
+  margin:0 auto 16px;
+  font-size:32px;
+  color:#2196f3;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.modal-box p{
+  font-size:16px;
+  margin-bottom:20px;
+}
+
+.modal-box button{
+  background:#4caf50;
+  border:none;
+  color:#fff;
+  padding:8px 26px;
+  border-radius:4px;
+  cursor:pointer;
+}
+
+
+/* ================= TABLET / MOBILE ================= */
+@media(max-width:1024px){
+  .form-grid,.result-grid{grid-template-columns:1fr}
+  .captcha-row{flex-direction:column;align-items:flex-start}
+	.footer-logos{
+    justify-content:center;
+  }
+}
+/* =================  MOBILE ================= */
+
+@media(max-width:768px){
+  .container{width:calc(100% - 32px);padding:28px; position:relative; /* 🔴 REQUIRED for close button */}
+  
+.footer-grid{grid-template-columns:1fr;text-align:center}
+ 
+ .footer-logos{justify-content:center}
+  
+.footer-logos figcaption{display:none}
+
+.footer-logo-item span{
+    display:none; /* original hides text on small screens */
+  }
+ 
+.main-header,
+  .header-gap{
+    display:none;
+  }
+
+  .page{
+    padding-top:20px;
+  }
+
+.close-btn{
+  position:absolute;
+  top:-14px;
+  right:-14px;
+}
 }
 </style>
 </head>
 
 <body>
 
-<!-- NAVBAR -->
-<div class="navbar">
-    <div class="logo"><img src="Eolakh.png" alt="Eolakh Gujrat" width="60%" height="15%"></div>
-    <ul>
-        <li>Home</li>
-        <li>Quick Pay</li>
-        <li>Certificate Verification</li>
-        <li>Online Services</li>
-        <li>Downloads</li>
-        <li>Login</li>
-        <li>Register</li>
+<header class="main-header">
+  <div class="header-inner">
+
+    <div class="logo-left">
+      <img src="Eolakh.png" alt="eNagar Gujarat">
+    </div>
+
+    <ul class="nav-menu">
+      <li>Home</li>
+      <li>Quick Pay</li>
+      <li class="active">Certificate Verification</li>
+      <li>Online Services</li>
+      <li>Downloads</li>
+      <li>Municipalities</li>
+      <li>Login</li>
+      <li>Register</li>
     </ul>
-</div>
 
-<!-- PAGE -->
+    <div class="logo-right">
+      <img src="gudmlogo.png" alt="GUDM">
+    </div>
+
+  </div>
+</header>
+<div class="header-gap"></div>
+
 <div class="page">
+<div class="container">
+<button class="close-btn">✕</button>
 
-    <div class="breadcrumb">Home / Certificate Verification</div>
+<div class="title">
+<h2>Certificate Verification</h2>
+<p>પ્રમાણપત્ર ચકાસણી</p>
+<div class="note">All fields are required</div>
+</div>
 
-    <div class="title">
-        <h2>Certificate Verification</h2>
-        <p>પ્રમાણપત્ર ચકાસણી</p>
-        <p>All fields are required</p>
+<form class="form-grid">
+<div class="field dropdown-field">
+  <label><span>*</span>ULB Name <small>/ ULB નું નામ</small></label>
+
+  <div class="custom-select" onclick="toggleULB()">
+    <span id="ulbSelected">Mahuva Nagarpalika / મહુવા નગરપાલિકા</span>
+  </div>
+
+  <ul class="dropdown" id="ulbDropdown">
+   <li>Ahmedabad Municipal Corporation / અમદાવાદ મહાનગરપાલિકા</li>
+  <li>Surat Municipal Corporation / સુરત મહાનગરપાલિકા</li>
+  <li>Vadodara Municipal Corporation / વડોદરા મહાનગરપાલિકા</li>
+  <li>Rajkot Municipal Corporation / રાજકોટ મહાનગરપાલિકા</li>
+
+  <li>Bhavnagar Municipal Corporation / ભાવનગર મહાનગરપાલિકા</li>
+  <li>Jamnagar Municipal Corporation / જામનગર મહાનગરપાલિકા</li>
+
+  <li>Limbdi Nagarpalika / લિંબડી નગરપાલિકા</li>
+  <li>Lunawada Nagarpalika / લુણાવાડા નગરપાલિકા</li>
+  <li class="active">
+    Mahuva Nagarpalika / મહુવા નગરપાલિકા
+    <span class="check">✔</span>
+  </li>
+
+  <li>Palitana Nagarpalika / પાલીતાણા નગરપાલિકા</li>
+  <li>Talaja Nagarpalika / તલાજા નગરપાલિકા</li>
+  <li>Botad Nagarpalika / બોટાદ નગરપાલિકા</li>
+  <li>Amreli Nagarpalika / અમરેલી નગરપાલિકા</li>
+  </ul>
+</div>
+
+<div class="field dropdown-field">
+  <label><span>*</span>Application Name</label>
+
+  <div class="custom-select" onclick="toggleDropdown()">
+    <span id="selectedText">Marriage Certificate / લગ્ન પ્રમાણપત્ર</span>
+  </div>
+
+  <ul class="dropdown" id="dropdown">
+   <li>Architect/Engineer License Certificate</li>
+
+  <li>Birth Certificate / જન્મ પ્રમાણપત્ર</li>
+
+  <li>Building Permission Certificate</li>
+
+  <li>Death Certificate / મૃત્યુ પ્રમાણપત્ર</li>
+
+  <li>Fire NOC Certificate / ફાયર એનઓસી પ્રમાણપત્ર</li>
+
+  <li class="active">
+    Marriage Certificate / લગ્ન પ્રમાણપત્ર
+    <span class="check">✔</span>
+  </li>
+
+  <li>Mobile Tower Fees Payment / મોબાઇલ ટાવર ફી ચુકવણી</li>
+
+  <li>
+    Professional Tax (EC) Certificate /
+    વ્યવસાયિક કર (ઇસી) પ્રમાણપત્ર
+  </li>
+
+  <li>
+    Professional Tax (RC) Certificate /
+    વ્યવસાયિક કર (આરસી) પ્રમાણપત્ર
+  </li>
+
+  <li>RUC Application</li>
+
+  <li>
+    Shops and Establishment Certificate /
+    દુકાન અને સ્થાપના પ્રમાણપત્ર
+  </li>
+  </ul>
+</div>
+
+<div class="field"><label><span>*</span>Registration Number</label><input value="018JN2024000456"></div>
+<div class="field"><label><span>*</span>Registration Date</label><input value="09-06-2024"></div>
+<div class="field"><label><span>*</span>Date of Marriage</label><input value="07-04-2024"></div>
+
+<div class="captcha-row">
+<div class="field"><label><span>*</span>Captcha</label><input id="captchaInput"></div>
+<div class="captcha-text" id="captcha"></div>
+<div class="refresh" onclick="generateCaptcha()">⟳</div>
+</div>
+
+<div class="btn-wrap"><button type="button" onclick="showResult()">VERIFY</button></div>
+</form>
+
+<div class="result" id="result">
+<div class="result-grid">
+<div class="r-item"><span>Bridegroom's Name</span>Ismailbhai Sulemanbhai Bhatti</div>
+<div class="r-item"><span>Bridegroom's Father Name</span>Bhatti Sulemanbhai</div>
+<div class="r-item"><span>Bridegroom's Address Name</span>Shamliya Sheri,Hiramoti Bilding, MAHUVA</div>
+<div class="r-item"><span>Bride's Name</span>Rafai Rashidabanu Abdulbhai</div>
+<div class="r-item"><span>Bride's Father Name</span>Bhatti Sulemanbhai</div>
+<div class="r-item"><span>Bride's Address Name</span>Bidi Kamdar,savarkundla, AMRELI</div>
+<div class="r-item"><span>Marriage Date</span>07/04/2024</div>
+<div class="r-item"><span>Registration Date</span>09/06/2024</div>
+<div class="r-item"><span>Serial No</span>0000456</div>
+<div class="r-item"><span>Volume No</span>1</div>
+</div>
+</div>
+
+</div>
+</div>
+<div class="modal-overlay" id="popup">
+  <div class="modal-box">
+    <div class="modal-icon">i</div>
+    <p id="popupText">Please Enter Captcha Code.</p>
+    <button onclick="closePopup()">OK</button>
+  </div>
+</div>
+
+<footer>
+<div class="footer-grid">
+
+  <div>
+    <h4>ABOUT US</h4>
+    <p>About Us</p>
+    <p>Privacy Policy</p>
+  </div>
+
+  <div>
+    <h4>CONTACT US</h4>
+    <p>Contact Us</p>
+    <p>Feedback</p>
+    <p>Municipalities</p>
+  </div>
+
+  <div>
+    <h4>HELP</h4>
+    <p>Help</p>
+    <p>FAQ</p>
+  </div>
+
+  <div>
+    <h4>NAVIGATE SITE</h4>
+    <p>Home</p>
+    <p>Search</p>
+    <p>Sitemap</p>
+
+    <h4 style="margin-top:16px">DOWNLOAD MOBILE APP</h4>
+    <div class="app-icons">
+      <span>🤖</span>
+      <span>🍎</span>
     </div>
+  </div>
 
-    <!-- FORM -->
-    <div class="form-grid">
-
-        <div class="field">
-            <label>ULB Name <br><span style="font-size:15px;"><b>*</B></span>&nbsp;&nbsp;ULB નું નામ</label>
-            <select>
-                <option>Savarkundla Nagarpalika/ સાવરકુંડલા નગરપાલિકા</option>
-		Rajpipla Nagarpalika / રાજપીપલા નગરપાલિકા</option>
-		<option>Rajula Nagarpalika / રાજુલા નગરપાલિકા</option>
-		<option>Ranavav Nagarpalika / રાણાવાવ નગરપાલિકા</option>
-		<option>Rapar Nagarpalika / રાપર નગરપાલિકા</option>
-		<option>Salaya Nagarpalika / સલાયા નગરપાલિકા</option>
-		<option>Sanand Nagarpalika / સાણંદ નગરપાલિકા</option>
-		<option>Santrampur Nagarpalika / સંતરામપુર નગરપાલિકા</option>
-		<option>Savli Nagarpalika / સાવલી નગરપાલિકા</option>
-		<option>Shahera Nagarpalika / શહેરા નગરપાલિકા</option>
-		<option>Siddhpur Nagarpalika / સિધ્ધપુર નગરપાલિકા</option>
-		<option>Sihor Nagarpalika / સિહોર નગરપાલિકા</option>
-		<option>Sikka Nagarpalika / સિક્કા નગરપાલિકા</option>
-		<option>Sojitra Nagarpalika / સોજીત્રા નગરપાલિકા</option>
-		<option>Songadh Nagarpalika / સોનગઢ નગરપાલિકા</option>
-            </select>
-        </div>
-
-        <div class="field">
-            <label>Application Name <br><span style="font-size:15px;"><b>*</B></span>&nbsp;&nbsp;એપ્લિકેશનનું નામ</label>
-            <select>
-                <option>Marriage Certificate//લગ્ન પ્રમાણપત્ર</option>
-		<option>Architect/Engineer License Certificate</option>
-		<option>Birth Certificate/જન્મ પ્રમાણપત્ર</option>
-		<option>Building Permission Certificate</option>
-		<option>Death Certificate/મૃત્યુ પ્રમાણપત્ર</option>
-		<option>Fire NOC Certificate / ફાયર એનઓસી પ્રમાણપત્ર</option>
-		<option>Mobile Tower Fees Payment / મોબાઇલ ટાવર ફી ચુકવણી</option>
-		<option>Professional Tax (EC) Certificate/વ્યવસાયિક કર (ઇસી) પ્રમાણપત્ર</option>
-		<option>Professional Tax (RC) Certificate/વ્યવસાયિક કર (આરસી) પ્રમાણપત્ર</option>
-		<option>RUC Application</option>
-		<option>Shops and Establishment Certificate / દુકાનો અને સ્થાપના પ્રમાણપત્ર</option>
-            </select>
-        </div>
-
-        <div class="field">
-            <label>Registration Number <span style="font-size:15px;"><b>*</B></span></label>
-            <input type="text" value="018JN2024000456">
-        </div>
-
-        <div class="field date-wrap">
-            <label>Registration Date <span style="font-size:15px;"><b>*</B></span></label>
-            <input type="date" value="2024-06-09">
-        </div>
-
-        <div class="field date-wrap">
-            <label>Date of Marriage <span style="font-size:15px;"><b>*</B></span></label>
-            <input type="date" value="2024-04-07">
-        </div>
-
-        <div class="field">
-            <label>Captcha <span style="font-size:15px;"><b>*</B></span></label>
-            <div class="captcha-box">
-                <div class="captcha-code" id="captcha">65845</div>
-                <div class="refresh" onclick="genCaptcha()">🔄</div>
-            </div>
-            <input type="text" placeholder="Enter Captcha">
-        </div>
-
-        <div class="btn-wrap">
-            <button onclick="verify()">VERIFY</button>
-        </div>
+  <div class="footer-logos">
+    <div class="logo-row">
+      <img src="udhd.png">
+      <span>Urban Development And Urban Housing Department</span>
+    </div><br>
+    <div class="logo-row">
+      <img src="gswan.png">
+      <span>Gujarat State Wide Area Network</span>
+    </div><br>
+    <div class="logo-row">
+      <img src="gudm.png">
+      <span>Gujarat Urban Development Mission</span>
     </div>
-
-    <!-- RESULT -->
-    <div class="result" id="result">
-        <div class="result-grid">
-            <div>Bridegroom's Name<div class="value">Ismailbhai Sulemanbhai Bhatti</div></div>
-            <div>Bridegroom's Father Name<div class="value">Bhatti Sulemanbhai</div></div>
-
-            <div>Bridegroom's Address<div class="value">Shamliya Sheri,Hiramoti Bilding, MAHUVA</div></div>
-            <div>Bride's Name<div class="value">Rafai Rashidabanu Abdulbhai</div></div>
-
-            <div>Bride's Father Name<div class="value">Rafai Abdulbhai</div></div>
-            <div>Bride's Address<div class="value">Bidi Kamdar,savarkundla, AMRELI</div></div>
-
-            <div>Marriage Date<div class="value">07/04/2024</div></div>
-            <div>Registration Date<div class="value">09/06/2024</div></div>
-
-            <div>Serial No<div class="value">0000456</div></div>
-            <div>Volume No<div class="value">1</div></div>
-        </div>
-    </div>
+  </div>
 
 </div>
 
-<!-- FOOTER -->
-<div class="footer">
-    <div class="footer-grid">
-        <div>
-            <h2>ABOUT US</h2>
-            <p>About Us</p>
-            <p>Privacy Policy</p>
-        </div>
-        <div>
-            <h2>CONTACT US</h2>
-            <p>Contact</p>
-            <p>Feedback</p>
-        </div>
-        <div>
-            <h2>HELP</h2>
-            <p>Help</p>
-            <p>FAQ</p>
-        </div>
-        <div>
-            <h2>NAVIGATE SITE</h2>
-            <p>Home</p>
-            <p>Search</p>
-        </div>
-	<div><img src="1010.png" alt="Eolakh Gujrat" align:left;></div>
-	<h3>DOWNLOAD MOBILE APP</h3>
-    </div>
-
-   
+<div class="footer-bottom">
+  <span class="visitor">Visitor Count : 4104697</span>
+  <span>Last Updated On : 02/01/2026</span>
 </div>
- <div class="footer-bottom">
-      2017    © ENAGAR All rights Reserved
-    </div>
+</footer>
+
 <script>
-function genCaptcha(){
-    document.getElementById("captcha").innerText =
-        Math.floor(10000 + Math.random()*90000);
+let currentCaptcha = "";
+
+/* generate captcha */
+function generateCaptcha(){
+  currentCaptcha = Math.floor(10000 + Math.random() * 90000);
+  document.getElementById("captcha").innerText = currentCaptcha;
 }
-function verify(){
-    document.getElementById("result").style.display="block";
+
+/* show popup */
+function showPopup(msg){
+  document.getElementById("popupText").innerText = msg;
+  document.getElementById("popup").style.display = "flex";
+}
+
+/* close popup */
+function closePopup(){
+  document.getElementById("popup").style.display = "none";
+}
+
+/* verify */
+function showResult(){
+  const input = document.getElementById("captchaInput").value.trim();
+
+  if(input === ""){
+    showPopup("Please Enter Captcha Code.");
+    return;
+  }
+
+  if(input !== String(currentCaptcha)){
+    showPopup("Invalid Captcha");
+    generateCaptcha();
+    document.getElementById("captchaInput").value = "";
+    return;
+  }
+
+  document.getElementById("result").style.display = "block";
+}
+
+/* init */
+generateCaptcha();
+</script>
+
+<script>
+function toggleDropdown(){
+  const dd = document.getElementById("dropdown");
+  dd.style.display = dd.style.display === "block" ? "none" : "block";
+}
+
+function selectItem(el){
+  document.getElementById("selectedText").innerText =
+    el.innerText.replace("✔","").trim();
+
+  document.querySelectorAll("#dropdown li")
+    .forEach(li => li.classList.remove("active"));
+
+  el.classList.add("active");
+  document.getElementById("dropdown").style.display = "none";
 }
 </script>
+<script>
+function toggleULB(){
+  const dd = document.getElementById("ulbDropdown");
+  dd.style.display = dd.style.display === "block" ? "none" : "block";
+}
+
+function selectULB(el){
+  document.getElementById("ulbSelected").innerText =
+    el.innerText.replace("✔","").trim();
+
+  document.querySelectorAll("#ulbDropdown li")
+    .forEach(li => li.classList.remove("active"));
+
+  el.classList.add("active");
+  document.getElementById("ulbDropdown").style.display = "none";
+}
+
+/* close dropdowns when clicking outside */
+document.addEventListener("click", function(e){
+  if(!e.target.closest(".dropdown-field")){
+    document.querySelectorAll(".dropdown")
+      .forEach(d => d.style.display = "none");
+  }
+});
+</script>
+
 
 </body>
 </html>
